@@ -21,3 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Journal"
 include(":app")
+include(":common_compose")
