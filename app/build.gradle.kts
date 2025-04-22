@@ -39,6 +39,7 @@ android {
 dependencies {
 
     implementation(project(":common_compose"))
+    implementation(project(":feature_video_records"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.activity.compose)
