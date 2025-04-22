@@ -1,22 +1,18 @@
 import com.zywczas.buildutils.Versions
 
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.detekt)
 }
 
 android {
-    namespace = "com.zywczas.journal"
+    namespace = "com.zywczas.commoncompose"
     compileSdk = Versions.COMPILE_SDK
 
     defaultConfig {
-        applicationId = "com.zywczas.journal"
         minSdk = Versions.MIN_SDK
-        targetSdk = Versions.TARGET_SDK
-        versionCode = Versions.VERSION_CODE
-        versionName = Versions.VERSION_NAME
     }
 
     buildTypes {
@@ -38,15 +34,10 @@ android {
 
 dependencies {
 
-    implementation(project(":common_compose"))
-
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.activity.compose)
-
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
-
-    implementation(platform(libs.koin.bom))
-    implementation(libs.koin.core)
-    implementation(libs.koin.androidx.compose)
+    implementation(libs.androidx.ui.graphics)
+    debugImplementation(libs.androidx.ui.tooling.preview)
+    debugImplementation(libs.androidx.ui.tooling)
+    implementation(libs.androidx.material3)
 }
