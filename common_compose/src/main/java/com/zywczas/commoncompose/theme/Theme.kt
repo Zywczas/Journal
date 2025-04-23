@@ -54,25 +54,36 @@ private val DarkColorScheme = darkColorScheme()
 
 private val LightColorScheme = lightColorScheme(
     primary = Color.PrimaryLight,
-    // bottom sheet
+    // bottom sheet background
     surfaceContainerLow = Color.ScreenBackground,
+    // dialog background
+    surfaceContainerHigh = Color.ScreenBackground,
     surface = Color.PrimaryLight.copy(alpha = 0.5f),
-    onBackground = Color.BlueText
+    onBackground = Color.BlueText,
+    // FAB background
+    primaryContainer = Color.PrimaryLight,
 )
 
 private val typography = Typography(
     bodyLarge = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Normal,
-        fontSize = 16.sp,
-        lineHeight = 24.sp,
+        fontSize = 20.sp,
+        lineHeight = 22.sp,
         letterSpacing = 0.5.sp,
     ),
     bodyMedium = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Normal,
-        fontSize = 14.sp,
-        lineHeight = 22.sp,
+        fontSize = 18.sp,
+        lineHeight = 20.sp,
+        letterSpacing = 0.5.sp,
+    ),
+    bodySmall = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.Normal,
+        fontSize = 16.sp,
+        lineHeight = 18.sp,
         letterSpacing = 0.5.sp,
     ),
     labelSmall = TextStyle(
