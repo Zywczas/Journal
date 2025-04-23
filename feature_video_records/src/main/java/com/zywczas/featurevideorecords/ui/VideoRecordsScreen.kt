@@ -74,8 +74,11 @@ private fun VideoRecordsScreen(
             FAB(
                 text = stringResource(R.string.add_video),
                 onClick = {
-                    if (arePermissionsGranted.not()) showPermissionsDialog = true
-                    else recordVideo()
+                    if (arePermissionsGranted.not()) {
+                        showPermissionsDialog = true
+                    } else {
+                        recordVideo()
+                    }
                 },
             )
         }
@@ -105,5 +108,5 @@ private fun PermissionsDialog(
 }
 
 private fun recordVideo() {
-
+    // todo
 }
