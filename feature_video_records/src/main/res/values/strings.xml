@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <string name="video_records_screen_title">Videos</string>
+  <string name="add_video">Add video</string>
+  <string name="video_permissions_required_message">To record videos we need your permission for access to a camera and the device storage.</string>
+</resources>
