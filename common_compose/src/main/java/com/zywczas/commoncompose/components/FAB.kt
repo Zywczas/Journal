@@ -28,7 +28,7 @@ fun FAB(
     FloatingActionButton(
         onClick = onClick,
         content = {
-            Row(Modifier.padding(horizontal = 4.dp)) {
+            Row(Modifier.padding(horizontal = 8.dp)) {
                 imageVector?.let {
                     Icon(
                         imageVector = imageVector,

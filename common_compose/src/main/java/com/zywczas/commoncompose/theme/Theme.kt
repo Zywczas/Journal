@@ -54,6 +54,7 @@ private val DarkColorScheme = darkColorScheme()
 
 private val LightColorScheme = lightColorScheme(
     primary = Color.PrimaryLight,
+    onPrimary = Color.White,
     // bottom sheet background
     surfaceContainerLow = Color.ScreenBackground,
     // dialog background

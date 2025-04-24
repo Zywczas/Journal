@@ -21,6 +21,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "Journal"
 include(":app")
+include(":common_activity_result")
 include(":common_compose")
 include(":common_util")
 include(":feature_video_records")
