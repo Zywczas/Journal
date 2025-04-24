@@ -6,6 +6,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import com.zywczas.commonutil.BaseViewModel
+import com.zywczas.commonutil.logD
 
 @Stable
 internal class VideoRecordsViewModel : BaseViewModel() {
@@ -17,7 +18,7 @@ internal class VideoRecordsViewModel : BaseViewModel() {
     }
 
     fun saveVideo(uri: Uri?) {
-
+        logD(uri)
     }
 }
 
