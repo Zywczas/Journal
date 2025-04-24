@@ -1,5 +1,6 @@
 package com.zywczas.featurevideorecords.viewmodel
 
+import android.net.Uri
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -13,6 +14,10 @@ internal class VideoRecordsViewModel : BaseViewModel() {
 
     fun init() {
         videos = mockedVideos
+    }
+
+    fun saveVideo(uri: Uri?) {
+
     }
 }
 
