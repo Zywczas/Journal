@@ -1,6 +1,7 @@
 package com.zywczas.featurevideorecords.ui
 
 import android.annotation.SuppressLint
+import android.net.Uri
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -18,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import com.zywczas.commonactivityresult.GoToAppSettings
+import com.zywczas.commonactivityresult.media.video.CaptureVideo
 import com.zywczas.commonactivityresult.permissions.Permission
 import com.zywczas.commonactivityresult.permissions.PermissionRequester
 import com.zywczas.commonactivityresult.permissions.PermissionUtil
@@ -38,6 +40,7 @@ fun VideoRecordsScreen() {
 
     VideoRecordsScreen(
         videos = viewModel.videos,
+        saveVideo = viewModel::saveVideo
     )
 
     LaunchedEffect(Unit) {
@@ -48,6 +51,7 @@ fun VideoRecordsScreen() {
 @Composable
 private fun VideoRecordsScreen(
     videos: List<String>,
+    saveVideo: (Uri?) -> Unit
 ) {
     val context = LocalContext.current
     var showPermissionsRationaleDialog by remember { mutableStateOf(false) }
@@ -56,6 +60,8 @@ private fun VideoRecordsScreen(
     val closePermissionRequesterAction = { askForPermission = false }
     var showGoToSettingsMessage by remember { mutableStateOf(false) }
     val closeGoToSettingsMessage = { showGoToSettingsMessage = false }
+    var recordVideo by remember { mutableStateOf(false) }
+    val showVideoRecorder = { recordVideo = true }
 
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     Scaffold(
@@ -88,7 +94,7 @@ private fun VideoRecordsScreen(
                     if (PermissionUtil.isGranted(Permission.Camera, context).not()) {
                         showPermissionsRationaleDialog = true
                     } else {
-                        // check storage permission
+                        showVideoRecorder()
                     }
                 },
             )
@@ -111,7 +117,7 @@ private fun VideoRecordsScreen(
             onDenied = closePermissionRequesterAction,
             onGranted = {
                 closePermissionRequesterAction()
-                // check storage permission
+                showVideoRecorder()
             },
             onDeniedAndNeverAskAgain = {
                 closePermissionRequesterAction()
@@ -126,8 +132,17 @@ private fun VideoRecordsScreen(
             onReturnFromSettings = {
                 closeGoToSettingsMessage()
                 if (PermissionUtil.isGranted(Permission.Camera, context)) {
-                    // check storage permission
+                    showVideoRecorder()
                 }
+            }
+        )
+    }
+
+    if (recordVideo) {
+        CaptureVideo(
+            onResult = { uri: Uri? ->
+                recordVideo = false
+                saveVideo(uri)
             }
         )
     }

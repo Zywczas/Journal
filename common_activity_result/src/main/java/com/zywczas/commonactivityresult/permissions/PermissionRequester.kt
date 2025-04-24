@@ -23,7 +23,7 @@ fun PermissionRequester(
     if (PermissionUtil.isGranted(permission, context)) {
         onGranted()
     } else {
-        val permissionLauncher: ManagedActivityResultLauncher<String, Boolean> =
+        val launcher: ManagedActivityResultLauncher<String, Boolean> =
             rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { permissionGranted: Boolean ->
                 if (permissionGranted) {
                     onGranted()
@@ -34,7 +34,7 @@ fun PermissionRequester(
                 }
             }
         LaunchedEffect(Unit) {
-            permissionLauncher.launch(requiredPermission)
+            launcher.launch(requiredPermission)
         }
     }
 }

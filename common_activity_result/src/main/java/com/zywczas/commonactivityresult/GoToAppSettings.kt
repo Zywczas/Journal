@@ -16,12 +16,12 @@ fun GoToAppSettings(
     content: @Composable (goToSettingsAction: () -> Unit) -> Unit
 ) {
     val context = LocalContext.current
-    val activityResultLauncher: ManagedActivityResultLauncher<Intent, ActivityResult> =
+    val launcher: ManagedActivityResultLauncher<Intent, ActivityResult> =
         rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
             onReturnFromSettings()
         }
     val goToSettingsAction = {
-        activityResultLauncher.launch(
+        launcher.launch(
             Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
                 data = Uri.fromParts("package", context.packageName, null)
             }
