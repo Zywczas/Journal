@@ -1,0 +1,19 @@
+CREATE TABLE Video (
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	timeStamp INTEGER NOT NULL,
+	uri TEXT NOT NULL,
+	description TEXT
+);
+
+getVideos:
+SELECT *
+FROM Video;
+
+insertVideo:
+INSERT OR REPLACE
+INTO Video (
+	id,
+	timeStamp,
+	uri,
+	description
+) VALUES ?;
