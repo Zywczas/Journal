@@ -10,4 +10,5 @@ object Color {
   internal val PrimaryLight = BlueGrotto
   internal val BaseText = Color.Black
   internal val ScreenBackground = Color.White
+  internal val White = Color.White
 }

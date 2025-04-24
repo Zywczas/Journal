@@ -8,7 +8,7 @@ plugins {
 }
 
 android {
-    namespace = "com.zywczas.featurevideorecords"
+    namespace = "com.zywczas.activityresultcontracts"
     compileSdk = Versions.COMPILE_SDK
 
     defaultConfig {
@@ -34,21 +34,7 @@ android {
 
 dependencies {
 
-    implementation(project(":common_activity_result"))
-    implementation(project(":common_compose"))
-    implementation(project(":common_util"))
-
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-
+    implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.ui.graphics)
-    implementation(libs.androidx.ui)
     implementation(libs.androidx.material3)
-    debugImplementation(libs.androidx.ui.tooling.preview)
-    debugImplementation(libs.androidx.ui.tooling)
-
-    implementation(platform(libs.koin.bom))
-    implementation(libs.koin.core)
-    implementation(libs.koin.compose.viewmodel)
 }

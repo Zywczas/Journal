@@ -15,8 +15,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import com.zywczas.commonactivityresult.GoToAppSettings
+import com.zywczas.commonactivityresult.permissions.Permission
+import com.zywczas.commonactivityresult.permissions.PermissionRequester
+import com.zywczas.commonactivityresult.permissions.PermissionUtil
 import com.zywczas.commoncompose.components.BottomBarInsetSpacer
+import com.zywczas.commoncompose.components.BottomSheet
 import com.zywczas.commoncompose.components.FAB
 import com.zywczas.commoncompose.components.Toolbar
 import com.zywczas.commoncompose.components.TwoButtonsDialog
@@ -31,7 +37,7 @@ fun VideoRecordsScreen() {
     val viewModel: VideoRecordsViewModel = koinViewModel()
 
     VideoRecordsScreen(
-        videos = viewModel.videos
+        videos = viewModel.videos,
     )
 
     LaunchedEffect(Unit) {
@@ -41,10 +47,15 @@ fun VideoRecordsScreen() {
 
 @Composable
 private fun VideoRecordsScreen(
-    videos: List<String>
+    videos: List<String>,
 ) {
-    val arePermissionsGranted = false
-    var showPermissionsDialog by remember { mutableStateOf(false) }
+    val context = LocalContext.current
+    var showPermissionsRationaleDialog by remember { mutableStateOf(false) }
+    val closePermissionsRationaleDialogAction = { showPermissionsRationaleDialog = false }
+    var askForPermission by remember { mutableStateOf(false) }
+    val closePermissionRequesterAction = { askForPermission = false }
+    var showGoToSettingsMessage by remember { mutableStateOf(false) }
+    val closeGoToSettingsMessage = { showGoToSettingsMessage = false }
 
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     Scaffold(
@@ -74,26 +85,58 @@ private fun VideoRecordsScreen(
             FAB(
                 text = stringResource(R.string.add_video),
                 onClick = {
-                    if (arePermissionsGranted.not()) {
-                        showPermissionsDialog = true
+                    if (PermissionUtil.isGranted(Permission.Camera, context).not()) {
+                        showPermissionsRationaleDialog = true
                     } else {
-                        recordVideo()
+                        // check storage permission
                     }
                 },
             )
         }
     )
 
-    if (showPermissionsDialog) {
+    if (showPermissionsRationaleDialog) {
         PermissionsDialog(
-            closeDialogAction = { showPermissionsDialog = false }
+            onCancelClick = closePermissionsRationaleDialogAction,
+            onConfirmClick = {
+                closePermissionsRationaleDialogAction()
+                askForPermission = true
+            }
+        )
+    }
+
+    if (askForPermission) {
+        PermissionRequester(
+            permission = Permission.Camera,
+            onDenied = closePermissionRequesterAction,
+            onGranted = {
+                closePermissionRequesterAction()
+                // check storage permission
+            },
+            onDeniedAndNeverAskAgain = {
+                closePermissionRequesterAction()
+                showGoToSettingsMessage = true
+            }
+        )
+    }
+
+    if (showGoToSettingsMessage) {
+        GoToSettings(
+            onCancel = closeGoToSettingsMessage,
+            onReturnFromSettings = {
+                closeGoToSettingsMessage()
+                if (PermissionUtil.isGranted(Permission.Camera, context)) {
+                    // check storage permission
+                }
+            }
         )
     }
 }
 
 @Composable
 private fun PermissionsDialog(
-    closeDialogAction: () -> Unit,
+    onCancelClick: () -> Unit,
+    onConfirmClick: () -> Unit,
 ) {
     TwoButtonsDialog(
         title = stringResource(com.zywczas.commonutil.R.string.permissions_required_title),
@@ -101,12 +144,30 @@ private fun PermissionsDialog(
         confirmButtonText = stringResource(com.zywczas.commonutil.R.string.confirm_button),
         dismissButtonText = stringResource(com.zywczas.commonutil.R.string.cancel_button),
         onConfirmClick = {
-            closeDialogAction()
+            onCancelClick()
+            onConfirmClick()
         },
-        onDismissClick = closeDialogAction
+        onDismissClick = onCancelClick
     )
 }
 
-private fun recordVideo() {
-    // todo
+@Composable
+private fun GoToSettings(
+    onCancel: () -> Unit,
+    onReturnFromSettings: () -> Unit,
+) {
+    GoToAppSettings(
+        onReturnFromSettings = onReturnFromSettings,
+        content = { goToSettingsAction: () -> Unit ->
+            BottomSheet(
+                title = stringResource(com.zywczas.commonutil.R.string.permissions_required_title),
+                text = stringResource(R.string.video_permissions_required_message),
+                primaryButtonText = stringResource(com.zywczas.commonutil.R.string.confirm_button),
+                secondaryButtonText = stringResource(com.zywczas.commonutil.R.string.cancel_button),
+                primaryButtonAction = goToSettingsAction,
+                secondaryButtonAction = onCancel,
+                onDismissRequest = onCancel
+            )
+        }
+    )
 }
