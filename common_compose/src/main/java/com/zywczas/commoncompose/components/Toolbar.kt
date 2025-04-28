@@ -13,7 +13,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.zywczas.commoncompose.R
-import com.zywczas.commoncompose.theme.Color
 import com.zywczas.commoncompose.theme.Theme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -24,7 +23,7 @@ fun Toolbar(
 ) {
     val textStyle = MaterialTheme.typography.titleMedium
     val iconsColor = MaterialTheme.colorScheme.primary
-    val backgroundColor = Color.ScreenBackground
+    val backgroundColor = MaterialTheme.colorScheme.background
     TopAppBar(
         title = {
             Text(

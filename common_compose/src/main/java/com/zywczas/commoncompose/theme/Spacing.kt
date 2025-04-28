@@ -16,6 +16,11 @@ object Spacing {
     val listItemVerticalInner = 4.dp
 
     /**
+     * 12 dp
+     */
+    val betweenListItems = 12.dp
+
+    /**
      * 16 dp
      */
     val screenBorder = 16.dp
