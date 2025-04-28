@@ -8,6 +8,7 @@ composeBom = "2025.04.00"
 detekt = "1.23.8"
 junit = "4.13.2"
 koin = "4.0.2"
+kotlinxDatetime = "0.6.2"
 sqlDelight = "2.0.1"
 
 [libraries]
@@ -25,6 +26,7 @@ junit = { group = "junit", name = "junit", version.ref = "junit" }
 koin-core = { group = "io.insert-koin", name = "koin-core" }
 koin-compose-viewmodel = { group = "io.insert-koin", name = "koin-compose-viewmodel" }
 koin-androidx-compose = { group = "io.insert-koin", name = "koin-androidx-compose" }
+kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDatetime" }
 sqldelight-android-driver = { module = "app.cash.sqldelight:android-driver", version.ref = "sqlDelight" }
 
 [plugins]

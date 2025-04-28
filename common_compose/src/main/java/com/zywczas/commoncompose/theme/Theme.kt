@@ -1,9 +1,6 @@
 package com.zywczas.commoncompose.theme
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LocalRippleConfiguration
 import androidx.compose.material3.MaterialTheme
@@ -13,7 +10,6 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -30,17 +26,11 @@ object Theme {
         CompositionLocalProvider(
             LocalRippleConfiguration provides RippleConfiguration(Color.PrimaryLight)
         ) {
-            Box(
-                Modifier
-                    .background(Color.ScreenBackground)
-                    .fillMaxSize()
-            ) {
-                MaterialTheme(
-                    colorScheme = if (darkTheme) DarkColorScheme else LightColorScheme,
-                    typography = typography,
-                    content = content
-                )
-            }
+            MaterialTheme(
+                colorScheme = if (darkTheme) DarkColorScheme else LightColorScheme,
+                typography = typography,
+                content = content
+            )
         }
     }
 
@@ -63,6 +53,7 @@ private val LightColorScheme = lightColorScheme(
     onBackground = Color.BlueText,
     // FAB background
     primaryContainer = Color.PrimaryLight,
+    background = Color.ScreenBackground
 )
 
 private val typography = Typography(
